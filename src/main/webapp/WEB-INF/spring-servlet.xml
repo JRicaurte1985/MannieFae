@@ -10,12 +10,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
-
-	<tx:annotation-driven></tx:annotation-driven>
-	<mvc:annotation-driven></mvc:annotation-driven>
-	<context:component-scan base-package="com.ex"></context:component-scan>
 	
-	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+	<mvc:resources location="/resources/" mapping="/resources/**" />
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/pages/"></property>
@@ -31,8 +27,8 @@
 	
 	<!-- Declare LocalSessionFactory bean -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan" value="com.ex"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.ex" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
@@ -45,5 +41,15 @@
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+
+<!--
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" id="handlerMapping">
+		<property name="alwaysUseFullPath" value="true" />
+	</bean>
+-->
+
+	<tx:annotation-driven />
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.ex.controller" />
 
 </beans>
